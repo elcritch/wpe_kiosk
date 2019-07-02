@@ -1,7 +1,6 @@
-defmodule WebengineKiosk.Options do
-  alias __MODULE__
+defmodule WpeKiosk.Options do
 
-  @type t :: %Options{
+  @type t :: %__MODULE__{
     homepage: String.t(),
     cog_bin_path: nil | binary(),
     use_touch: boolean(),

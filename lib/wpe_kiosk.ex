@@ -40,8 +40,8 @@ defmodule WpeKiosk do
 
   """
   @spec start_link(WpeKiosk.Options.t(), GenServer.options()) :: {:ok, pid} | {:error, term}
-  def start_link(args, genserver_opts \\ []) do
-    GenServer.start_link(__MODULE__, args, genserver_opts)
+  def start_link(%WpeKiosk.Options{} = opts, genserver_opts \\ []) do
+    GenServer.start_link(__MODULE__, opts, genserver_opts)
   end
 
   @doc """
@@ -54,7 +54,7 @@ defmodule WpeKiosk do
 
   @impl true
   @spec init( WpeKiosk.Options.t()) :: {:ok, map() }
-  def init(opts) do
+  def init(%WpeKiosk.Options{} = opts) do
 
     cmd =
       opts.command
