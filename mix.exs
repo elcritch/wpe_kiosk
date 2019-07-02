@@ -28,7 +28,7 @@ defmodule WpeKiosk.MixProject do
 
   defp package do
     [
-      files: ["lib", "mix.exs", "README*", "LICENSE*", "test", "Makefile"],
+      files: ["lib", "mix.exs", "README*", "LICENSE*", "test"],
       maintainers: ["Jaremy Creechley"],
       licenses: ["Apache-2.0"],
       links: %{"GitHub" => "https://github.com/elcritch/wpe_kiosk"}
