@@ -57,7 +57,7 @@ defmodule WpeKiosk do
   def init(%WpeKiosk.Options{} = opts) do
 
     cmd =
-      opts.command
+      opts.cog_bin_path
       || System.find_executable("cog")
       || Path.join(:code.priv_dir(:wpe_kiosk), "usr/bin/cog")
 
@@ -66,8 +66,8 @@ defmodule WpeKiosk do
       raise "Kiosk port missing"
     end
 
-    envs = %{ 'WPE_BCMRPI_TOUCH' => opts.use_touch,
-              'WPE_BCMRPI_CURSOR' => opts.use_cursor }
+    envs = [ {'WPE_BCMRPI_TOUCH', opts.use_touch},
+              {'WPE_BCMRPI_CURSOR', opts.use_cursor} ]
 
     args = [ opts.homepage ]
 
@@ -78,7 +78,7 @@ defmodule WpeKiosk do
   @impl true
   def handle_cast(:start, state) do
     # Optional Pause -- starting the browser can hit the system hard and it's helpful to wait a bit
-    Process.sleep(state.opts.startup_delay)
+    Process.sleep(state.opts.startup_delay_ms)
 
     if state.opts.init_udev_inputs do
       platform_init_events(state.opts.udev_init_delay_ms)
