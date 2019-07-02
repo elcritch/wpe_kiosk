@@ -1,26 +1,22 @@
 defmodule WpeKiosk do
   use GenServer
-
   require Logger
-
-  def child_spec({opts, genserver_opts}) do
-    id = genserver_opts[:id] || __MODULE__
-
-    %{
-      id: id,
-      start: {__MODULE__, :start_link, [opts, genserver_opts]}
-    }
-  end
-
-  def child_spec(opts) do
-    child_spec({opts, []})
-  end
 
   @moduledoc """
   Control a fullscreen WebKit browser using Elixir for use in a kiosk.
 
   Use `cog` from Igalia which is a WPE launcher and webapp container. See (Cog)[https://github.com/Igalia/cog].
   """
+
+  def child_spec({opts, genserver_opts}) do
+    id = genserver_opts[:id] || __MODULE__
+
+    %{ id: id, start: {__MODULE__, :start_link, [opts, genserver_opts] ++ [name: __MODULE__]} }
+  end
+
+  def child_spec(opts) do
+    child_spec({opts, []})
+  end
 
   @doc """
   Start the kiosk.
