@@ -66,8 +66,8 @@ defmodule WpeKiosk do
       raise "Kiosk port missing"
     end
 
-    envs = [ {'WPE_BCMRPI_TOUCH', opts.use_touch},
-              {'WPE_BCMRPI_CURSOR', opts.use_cursor} ]
+    envs = [ {'WPE_BCMRPI_TOUCH', opts.use_touch |> to_string() |> to_charlist()},
+              {'WPE_BCMRPI_CURSOR', opts.use_cursor |> to_string() |> to_charlist()} ]
 
     args = [ opts.homepage ]
 
@@ -87,11 +87,10 @@ defmodule WpeKiosk do
     Logger.info("Starting WPE Cog")
     port =
       Port.open({:spawn_executable, state.cmd}, [
-        {:args, state.args},
-        {:env, state.envs},
-        :use_stdio,
         :binary,
-        :exit_status
+        :exit_status,
+        args: state.args,
+        env: state.envs,
       ])
 
     unless port |> Port.info() do
