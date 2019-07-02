@@ -15,7 +15,7 @@ opts = %WpeKiosk.Options{
 
 pid = WpeKiosk.start_link(opts) 
 ```
-## Limitatioins 
+## Limitations 
 
 Currently only the bare minimum configuration for Cog is supported. This means the browser can _only_ be run fullscreen. 
 
@@ -32,3 +32,7 @@ end
 ```
 
 Important! Must use a base image that provides WPE with Cog. A customized Nerves image [wpe_kiosk_rpi3](https://github.com/elcritch/wpe_kiosk_rpi3/) is avialble for the RPi3 which provides cog and can run with out-of-the-box with the official RPi touchscreens. 
+
+## Acknowledgements
+
+Modeled on the [webengine_kiosk](https://github.com/fhunleth/webengine_kiosk) by fhunleth. 
