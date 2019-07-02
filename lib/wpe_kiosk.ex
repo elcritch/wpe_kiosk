@@ -11,7 +11,7 @@ defmodule WpeKiosk do
   def child_spec({opts, genserver_opts}) do
     id = genserver_opts[:id] || __MODULE__
 
-    %{ id: id, start: {__MODULE__, :start_link, [opts, genserver_opts] ++ [name: __MODULE__]} }
+    %{ id: id, start: {__MODULE__, :start_link, [opts, genserver_opts ++ [name: __MODULE__]]} }
   end
 
   def child_spec(opts) do
@@ -62,8 +62,9 @@ defmodule WpeKiosk do
       raise "Kiosk port missing"
     end
 
-    envs = [ {'WPE_BCMRPI_TOUCH', opts.use_touch |> to_string() |> to_charlist()},
-              {'WPE_BCMRPI_CURSOR', opts.use_cursor |> to_string() |> to_charlist()} ]
+    envs = [{'WPE_BCMRPI_TOUCH', opts.use_touch |> to_string() |> to_charlist()},
+            {'WPE_BCMRPI_CURSOR', opts.use_cursor |> to_string() |> to_charlist()},
+            {'CAIRO_GL_COMPOSITOR', 'noaa'}]
 
     args = [ opts.homepage ]
 
