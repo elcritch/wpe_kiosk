@@ -62,8 +62,8 @@ defmodule WpeKiosk do
       raise "Kiosk port missing"
     end
 
-    envs = [{'WPE_BCMRPI_TOUCH', opts.use_touch |> to_string() |> to_charlist()},
-            {'WPE_BCMRPI_CURSOR', opts.use_cursor |> to_string() |> to_charlist()},
+    envs = [{'WPE_BCMRPI_TOUCH', if opts.use_touch do '1' else '0' end },
+            {'WPE_BCMRPI_CURSOR', if opts.use_cursor do '1' else '0' end } ,
             {'CAIRO_GL_COMPOSITOR', 'noaa'}]
 
     args = [ opts.homepage ]
